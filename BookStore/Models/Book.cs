@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Models
 {
@@ -20,6 +21,11 @@ namespace BookStore.Models
 
         [Range(1, 5, ErrorMessage = "Rating should be from 1 to 5.")]
         public string Rating { get; set; }
+
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 
     public class DateValidation : ValidationAttribute

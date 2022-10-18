@@ -26,6 +26,11 @@ namespace BookStore.Pages.Books
             if (_context.Books != null)
             {
                 Book = await _context.Books.ToListAsync();
+
+                foreach (var book in Book)
+                {
+                    book.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == book.CategoryId);
+                }
             }
         }
     }

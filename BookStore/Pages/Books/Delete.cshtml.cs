@@ -30,6 +30,7 @@ namespace BookStore.Pages.Books
             }
 
             var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            book.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == book.CategoryId);
 
             if (book == null)
             {

@@ -15,6 +15,8 @@ namespace BookStore.Pages.Books
     {
         private readonly BookStore.DataLayer.BookDbContext _context;
 
+        public List<SelectListItem> Categories { get; set; }
+
         public EditModel(BookStore.DataLayer.BookDbContext context)
         {
             _context = context;
@@ -30,7 +32,14 @@ namespace BookStore.Pages.Books
                 return NotFound();
             }
 
+            Categories = _context.Categories.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString(),
+            }).ToList();
+
             var book =  await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            book.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == book.CategoryId);
             if (book == null)
             {
                 return NotFound();

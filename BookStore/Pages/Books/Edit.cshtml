@@ -25,6 +25,12 @@
                 <span asp-validation-for="Book.Author" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Book.CategoryId" class="control-label"></label>
+                <select asp-for="Book.CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option selected>Select book category</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Book.ReleaseDate" class="control-label"></label>
                 <input asp-for="Book.ReleaseDate" class="form-control" />
                 <span asp-validation-for="Book.ReleaseDate" class="text-danger"></span>

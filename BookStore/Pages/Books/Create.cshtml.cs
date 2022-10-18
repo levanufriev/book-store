@@ -14,6 +14,8 @@ namespace BookStore.Pages.Books
     {
         private readonly BookStore.DataLayer.BookDbContext _context;
 
+        public List<SelectListItem> Categories { get; set; }
+
         public CreateModel(BookStore.DataLayer.BookDbContext context)
         {
             _context = context;
@@ -21,17 +23,21 @@ namespace BookStore.Pages.Books
 
         public IActionResult OnGet()
         {
+            Categories = _context.Categories.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString(),
+            }).ToList();
+
             return Page();
         }
 
         [BindProperty]
         public Book Book { get; set; }
-        
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
